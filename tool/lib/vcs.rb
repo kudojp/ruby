@@ -451,7 +451,8 @@ class VCS
     end
 
     def cmd_read_at(srcdir, cmds)
-      result = without_gitconfig { IO.pread(*cmd_args(cmds, srcdir)) }
+      # result = without_gitconfig { IO.pread(*cmd_args(cmds, srcdir)) }
+      result = IO.pread(*cmd_args(cmds, srcdir))
       VCS.dump(result, "result: ") if debug?
       result
     end
