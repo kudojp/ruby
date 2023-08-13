@@ -1440,4 +1440,10 @@ class TestTime < Test::Unit::TestCase
   def test_parse_zero_bigint
     assert_equal 0, Time.new("2020-10-28T16:48:07.000Z").nsec, '[Bug #19390]'
   end
+
+  def test_day_before
+    t = Time.local(2010, 10, 28, 21, 26, 00)
+    assert_equal(t.day_before(), Time.new("2010-10-27 21:26:00"))
+    assert_equal(t.day_before(2), Time.new("2010-10-26 21:26:00"))
+  end
 end

@@ -5195,6 +5195,19 @@ time_strftime(VALUE time, VALUE format)
     }
 }
 
+static VALUE time_day_before(int argc, VALUE *argv, VALUE self) {
+    VALUE nth;
+    int n, sec, day_before_sec;
+
+    rb_scan_args(argc, argv, "01", &nth);
+    if (nth == Qnil) nth = INT2FIX(1);
+    n = NUM2INT(nth);
+
+    sec = NUM2INT(time_to_i(self));
+    day_before_sec = sec - (60 * 60 * 24 * n);
+    return rb_funcall(rb_cTime, rb_intern("at"), 1, INT2NUM(day_before_sec));
+}
+
 int ruby_marshal_write_long(long x, char *buf);
 
 enum {base_dump_size = 8};
@@ -5832,6 +5845,8 @@ Init_Time(void)
     rb_define_method(rb_cTime, "subsec", time_subsec, 0);
 
     rb_define_method(rb_cTime, "strftime", time_strftime, 1);
+    rb_define_method(rb_cTime, "day_before", time_day_before,
+                     -1);  // -1 signifies variable length of arguments
 
     /* methods for marshaling */
     rb_define_private_method(rb_cTime, "_dump", time_dump, -1);
