@@ -3541,6 +3541,18 @@ CODE
     assert_bytesplice_raise(ArgumentError, S("hello"), 0..-1, "bye", 0, 3)
   end
 
+  def test_palindrome
+    assert_equal("Sator Arepo Tenet Opera Rotas".palindrome?, true)
+    assert_equal("A man, a plan, a canal - Panama!".palindrome?, true)
+    assert_equal("Madam, I'm Adam".palindrome?, true)
+    assert_equal("NisiOisiN".palindrome?, true)
+    assert_equal("わかみかものとかなかとのもかみかわ".palindrome?, true)
+    assert_equal("アニマルマニア".palindrome?, true)
+
+    assert_equal("", false)
+    assert_equal("ab", false)
+  end
+
   private
 
   def assert_bytesplice_result(expected, s, *args)
