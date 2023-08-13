@@ -5502,6 +5502,8 @@ rb_int_digits_bigbase(VALUE num, VALUE base)
     return digits;
 }
 
+static VALUE int_add(VALUE self, VALUE n) { return rb_int_plus(self, n); }
+
 /*
  *  call-seq:
  *    digits(base = 10) -> array_of_integers
@@ -5518,9 +5520,7 @@ rb_int_digits_bigbase(VALUE num, VALUE base)
  *
  */
 
-static VALUE
-rb_int_digits(int argc, VALUE *argv, VALUE num)
-{
+static VALUE rb_int_digits(int argc, VALUE *argv, VALUE num) {
     VALUE base_value;
     long base;
 
@@ -6285,6 +6285,7 @@ Init_Numeric(void)
     rb_define_method(rb_cInteger, ">>", rb_int_rshift, 1);
 
     rb_define_method(rb_cInteger, "digits", rb_int_digits, -1);
+    rb_define_method(rb_cInteger, "add", int_add, 1);
 
     rb_fix_to_s_static[0] = rb_fstring_literal("0");
     rb_fix_to_s_static[1] = rb_fstring_literal("1");

@@ -485,4 +485,7 @@ class TestNumeric < Test::Unit::TestCase
     assert_equal(0, -2.pow(3, 1))
   end
 
+  def test_int_add
+    assert_equal(3, 1.add(2))
+  end
 end
